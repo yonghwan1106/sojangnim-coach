@@ -43,23 +43,23 @@ export default function RootLayout({ children }) {
         <header className="masthead">
           <div className="masthead-inner">
             <div className="masthead-left">
-              <div className="issue-no">第 一 號</div>
-              <div className="issue-date">丙午年 五月 · 2026.05</div>
+              <div className="issue-no">제 1 호</div>
+              <div className="issue-date">2026년 5월</div>
             </div>
             <a href="/" className="masthead-title">
-              <span className="title-han">社長님의 社長님</span>
-              <span className="title-sub">— 終了 同行 季刊 —</span>
+              <span className="title-han">사장님의 사장님</span>
+              <span className="title-sub">— 폐업 동행 계간 —</span>
             </a>
             <div className="masthead-right">
-              <div className="issue-tag">廢業 同行 1號</div>
-              <div className="issue-price">無 料 配 付</div>
+              <div className="issue-tag">폐업 동행 1호</div>
+              <div className="issue-price">무 료 배 포</div>
             </div>
           </div>
           <nav className="rule-nav">
-            <a href="/story">박용군 이야기 <em>記</em></a>
-            <a href="/diagnose">폐업 진단 <em>診</em></a>
-            <a href="/match">코치 매칭 <em>緣</em></a>
-            <a href="/resume">실패 경력서 <em>書</em></a>
+            <a href="/story">박용군 이야기 <em>기록</em></a>
+            <a href="/diagnose">폐업 진단 <em>처방</em></a>
+            <a href="/match">코치 매칭 <em>인연</em></a>
+            <a href="/resume">실패 경력서 <em>증서</em></a>
             <MobileNav />
           </nav>
           <div className="rule-thick" />

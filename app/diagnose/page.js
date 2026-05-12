@@ -52,10 +52,10 @@ export default function DiagnosePage() {
 
   return (
     <>
-      <span className="tag">三十秒 診斷</span>
-      <h1>폐업 진단 — 4주 캘린더 <em>處方</em></h1>
+      <span className="tag">30초 진단</span>
+      <h1>폐업 진단 — 4주 캘린더 <em>처방</em></h1>
       <p className="lead">
-        업종과 상황을 입력하면 三十個 절차 중 본인에게 해당하는 18~22개를 골라
+        업종과 상황을 입력하면 30개 절차 중 본인에게 해당하는 18~22개를 골라
         Week1~Week4 캘린더로 정리합니다. — 1호 코치 박용군의 처방전.
       </p>
 
@@ -101,9 +101,9 @@ export default function DiagnosePage() {
 
         <label>현재 부채 수준</label>
         <select value={form.debt} onChange={onChange('debt')}>
-          <option value="low">三千萬 원 이하</option>
-          <option value="medium">三千萬 ~ 一億 원</option>
-          <option value="high">一億 원 이상</option>
+          <option value="low">3천만 원 이하</option>
+          <option value="medium">3천만 ~ 1억 원</option>
+          <option value="high">1억 원 이상</option>
         </select>
 
         <label>추가 상황 (선택)</label>
@@ -113,13 +113,13 @@ export default function DiagnosePage() {
 
         <label>응답 어조</label>
         <div className="tone-toggle">
-          <button type="button" className={tone === 'formal' ? 'active' : ''} onClick={() => setTone('formal')}>公式 文書體</button>
+          <button type="button" className={tone === 'formal' ? 'active' : ''} onClick={() => setTone('formal')}>공식 문서체</button>
           <button type="button" className={tone === 'kakao' ? 'active' : ''} onClick={() => setTone('kakao')}>카톡 친구체</button>
         </div>
 
         <button type="submit" disabled={loading}>
           {loading && <span className="spinner" />}
-          {loading ? 'AI 분석 中... (3~5초)' : '4週 캘린더 생성'}
+          {loading ? 'AI 분석 중... (3~5초)' : '4주 캘린더 생성'}
         </button>
       </form>
 
@@ -127,11 +127,11 @@ export default function DiagnosePage() {
 
       {data?.weeks && (
         <>
-          <h2>4週 동행 캘린더 — 處方箋</h2>
+          <h2>4주 동행 캘린더 — 처방전</h2>
           <div className="calendar-grid">
             {data.weeks.map((w) => (
               <div key={w.week} className="week-card">
-                <div className="week-header" data-week={`第 ${['一','二','三','四'][w.week - 1] || w.week} 週`}>
+                <div className="week-header" data-week={`${w.week}주차`}>
                   <span>{w.theme}</span>
                 </div>
                 <ul>
@@ -152,20 +152,20 @@ export default function DiagnosePage() {
           {data.coachMessage && (
             <div className="coach-message">
               <div style={{ fontFamily: 'var(--f-display)', fontWeight: 700, marginBottom: 10, fontSize: 17 }}>
-                ◆ 一號 코치 박용군의 한마디
+                ◆ 1호 코치 박용군의 한마디
               </div>
               {data.coachMessage}
             </div>
           )}
 
           <button onClick={share} disabled={sharing}>
-            {sharing ? '저장 中...' : shareUrl ? '✓ 링크 복사됨' : '이 결과 공유 링크 받기'}
+            {sharing ? '저장 중...' : shareUrl ? '✓ 링크 복사됨' : '이 결과 공유 링크 받기'}
           </button>
           {shareUrl && (
             <div className="share-url">
               <code>{shareUrl}</code>
               <span style={{ fontSize: 11, color: 'var(--ink-faint)', marginLeft: 8, fontFamily: 'var(--f-mono)' }}>
-                ※ 三十日 有效
+                ※ 30일 유효
               </span>
             </div>
           )}

@@ -586,36 +586,27 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   position: absolute;
   top: 12px;
   right: 16px;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   background: var(--seal);
   color: var(--paper);
-  font-family: var(--f-display);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.2;
   box-shadow: 1px 2px 0 rgba(0,0,0,0.2);
   transform: rotate(-4deg);
 }
 
 .coach-message::after {
-  content: '朴勇君\A1號';
+  content: '박용군\A1 호';
   white-space: pre;
   position: absolute;
   top: 12px;
   right: 16px;
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   color: var(--paper);
   font-family: var(--f-display);
   font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.15em;
+  font-size: 13px;
+  letter-spacing: 0.1em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,7 +654,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .coach-card.featured::after {
-  content: '一 號';
+  content: '1 호';
   position: absolute;
   top: 14px;
   right: 18px;
@@ -744,7 +735,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .modal::before {
-  content: '申 請 書';
+  content: '신 청 서';
   position: absolute;
   top: -1px;
   left: 28px;
@@ -798,7 +789,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .story-illust::after {
-  content: '寫 眞';
+  content: '사 진';
   position: absolute;
   bottom: -32px;
   right: 0;

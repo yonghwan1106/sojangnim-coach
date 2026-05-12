@@ -22,11 +22,11 @@ export default function MatchPage() {
 
   return (
     <>
-      <span className="tag">三 軸 매칭</span>
-      <h1>폐업 동행 코치 <em>緣</em></h1>
+      <span className="tag">3축 매칭</span>
+      <h1>폐업 동행 코치 <em>인연</em></h1>
       <p className="lead">
         업종·지역·실패유형 세 축으로 가장 가까운 선배 사장님과 1:1 매칭됩니다.
-        4週 五十萬 원 패키지 (회당 五萬 원·총 10회).
+        4주 50만 원 패키지 (회당 5만 원·총 10회).
       </p>
 
       <div className="row" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
@@ -50,7 +50,7 @@ export default function MatchPage() {
         </div>
       </div>
 
-      <h2>매칭 결과 — {filtered.length} 名</h2>
+      <h2>매칭 결과 — {filtered.length}명</h2>
 
       {filtered.map((c) => (
         <div key={c.id} className={`coach-card ${c.featured ? 'featured' : ''}`}>
@@ -73,7 +73,7 @@ export default function MatchPage() {
               onClick={() => setApplyCoach(c)}
               style={{ marginTop: 18, padding: '10px 24px', fontSize: 14 }}
             >
-              4週 동행 신청 →
+              4주 동행 신청 →
             </button>
           </div>
         </div>

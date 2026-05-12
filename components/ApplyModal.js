@@ -32,13 +32,13 @@ export default function ApplyModal({ coach, onClose }) {
         {!done ? (
           <>
             <div style={{ fontFamily: 'var(--f-display)', fontWeight: 700, fontSize: 22, marginTop: 8, marginBottom: 6 }}>
-              {coach.name} 코치와 4週 동행 申請
+              {coach.name} 코치와 4주 동행 신청
             </div>
             <p style={{ fontFamily: 'var(--f-accent)', fontStyle: 'italic', fontSize: 14, color: 'var(--ink-soft)', marginBottom: 4 }}>
-              4週 五十萬 원 패키지 (회당 五萬 원·총 10회)
+              4주 50만 원 패키지 (회당 5만 원·총 10회)
             </p>
             <p style={{ fontSize: 12, color: 'var(--ink-faint)', fontFamily: 'var(--f-mono)', letterSpacing: '0.04em', borderBottom: '1px solid var(--ink-faint)', paddingBottom: 12, marginBottom: 4 }}>
-              申請 후 24時間 內 카카오톡 연락
+              신청 후 24시간 내 카카오톡 연락
             </p>
 
             <form onSubmit={submit}>
@@ -57,7 +57,7 @@ export default function ApplyModal({ coach, onClose }) {
                 <option value="1month">1개월 이내</option>
                 <option value="3month">3개월 이내</option>
                 <option value="6month">6개월 이내</option>
-                <option value="undecided">아직 고민 中</option>
+                <option value="undecided">아직 고민 중</option>
               </select>
 
               <label>한 줄 메모 (선택)</label>
@@ -65,16 +65,16 @@ export default function ApplyModal({ coach, onClose }) {
 
               <button type="submit" disabled={submitting}>
                 {submitting && <span className="spinner" />}
-                {submitting ? '전송 中...' : '申請 하기'}
+                {submitting ? '전송 중...' : '신청 하기'}
               </button>
             </form>
           </>
         ) : (
           <div style={{ textAlign: 'center', padding: '20px 0' }}>
-            <div style={{ fontFamily: 'var(--f-display)', fontSize: 56, color: 'var(--seal)', marginBottom: 8, fontWeight: 700 }}>受理</div>
-            <div style={{ fontFamily: 'var(--f-display)', fontWeight: 700, fontSize: 22, marginBottom: 8 }}>申請이 接受되었습니다</div>
+            <div style={{ fontFamily: 'var(--f-display)', fontSize: 56, color: 'var(--seal)', marginBottom: 8, fontWeight: 700 }}>접수</div>
+            <div style={{ fontFamily: 'var(--f-display)', fontWeight: 700, fontSize: 22, marginBottom: 8 }}>신청이 접수되었습니다</div>
             <p style={{ fontFamily: 'var(--f-body)', fontSize: 15 }}>
-              24時間 안에 <strong style={{ color: 'var(--seal)', fontWeight: 700 }}>{coach.name} 코치</strong>가 직접 카카오톡으로 연락드립니다.
+              24시간 안에 <strong style={{ color: 'var(--seal)', fontWeight: 700 }}>{coach.name} 코치</strong>가 직접 카카오톡으로 연락드립니다.
             </p>
             <p style={{ fontSize: 12, color: 'var(--ink-soft)', marginTop: 20, padding: 16, background: 'var(--paper-deep)', border: '1px dashed var(--ink-soft)', fontFamily: 'var(--f-mono)', letterSpacing: '0.03em', lineHeight: 1.7 }}>
               ※ 본 데모는 2026 모두의창업 프로젝트 응모용 프로토타입입니다.<br />
