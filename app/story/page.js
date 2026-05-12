@@ -33,7 +33,6 @@ export default function StoryPage() {
             width={280}
             height={280}
             priority
-            onError={() => {}}
           />
         </div>
         <div>

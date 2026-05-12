@@ -1,7 +1,7 @@
 import './globals.css';
 import Footer from '../components/Footer';
 import MobileNav from '../components/MobileNav';
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 
 const SITE_URL = 'https://sojangnim-coach.vercel.app';
 
