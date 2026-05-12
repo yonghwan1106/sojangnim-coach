@@ -7,17 +7,12 @@ const SITE_URL = 'https://sojangnim-coach.vercel.app';
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: {
-    default: '사장님의 사장님 — 폐업 동행 코치',
-    template: '%s | 사장님의 사장님',
-  },
+  title: { default: '사장님의 사장님 — 폐업 동행 코치', template: '%s | 사장님의 사장님' },
   description: '폐업한 사장이 폐업할 사장을 4주간 1:1 동행하는 한국 최초 "잘 끝내는 법" 양면 시장 플랫폼. 1호 코치 박용군 (평택 족발 10년).',
   keywords: ['폐업', '재도전', '소상공인', '자영업', '신용회복', '폐업 동행', '박용군', '모두의창업', '중소벤처기업부'],
   authors: [{ name: '박용군 1호 코치' }],
   openGraph: {
-    type: 'website',
-    locale: 'ko_KR',
-    url: SITE_URL,
+    type: 'website', locale: 'ko_KR', url: SITE_URL,
     title: '사장님의 사장님 — 폐업 동행 코치',
     description: '폐업한 사장님이 폐업할 사장님을 4주간 1:1 동행. 1호 코치 박용군 (평택 족발 10년, 2021 코로나 폐업).',
     siteName: '사장님의 사장님',
@@ -35,16 +30,39 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>
-        <header className="header">
-          <a href="/" className="logo">사장님의 <strong>사장님</strong></a>
-          <nav className="nav">
-            <a href="/story">박용군 이야기</a>
-            <a href="/diagnose">폐업 진단</a>
-            <a href="/match">코치 매칭</a>
-            <a href="/resume">실패 경력서</a>
+        <div className="paper-grain" aria-hidden />
+        <header className="masthead">
+          <div className="masthead-inner">
+            <div className="masthead-left">
+              <div className="issue-no">第 一 號</div>
+              <div className="issue-date">丙午年 五月 · 2026.05</div>
+            </div>
+            <a href="/" className="masthead-title">
+              <span className="title-han">社長님의 社長님</span>
+              <span className="title-sub">— 終了 同行 季刊 —</span>
+            </a>
+            <div className="masthead-right">
+              <div className="issue-tag">廢業 同行 1號</div>
+              <div className="issue-price">無 料 配 付</div>
+            </div>
+          </div>
+          <nav className="rule-nav">
+            <a href="/story">박용군 이야기 <em>記</em></a>
+            <a href="/diagnose">폐업 진단 <em>診</em></a>
+            <a href="/match">코치 매칭 <em>緣</em></a>
+            <a href="/resume">실패 경력서 <em>書</em></a>
+            <MobileNav />
           </nav>
-          <MobileNav />
+          <div className="rule-thick" />
         </header>
         <main className="main">{children}</main>
         <Footer />
