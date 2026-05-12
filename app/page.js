@@ -1,3 +1,10 @@
+const STATS = [
+  { num: '80만 명', label: '연간 자영업 폐업', source: '통계청 「전국사업체조사」' },
+  { num: '8천만 원', label: '평균 폐업 시 부채', source: '신용회복위원회 채무조정 통계' },
+  { num: '30~40만 명', label: '신용회복 절차 미신청', source: '신용회복위원회 연차보고서' },
+  { num: '7년', label: '미신청 시 재기 차단', source: '신용정보법 제25조' },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -8,6 +15,16 @@ export default function HomePage() {
         "잘 끝내는 법"을 가르치는 곳은 한 곳도 없습니다.
         폐업한 사장님이 폐업할 사장님을 4주간 1:1 동행합니다.
       </p>
+
+      <div className="stats-grid">
+        {STATS.map((s) => (
+          <div key={s.label} className="stat-card">
+            <div className="stat-num">{s.num}</div>
+            <div className="stat-label">{s.label}</div>
+            <div className="stat-source">{s.source}</div>
+          </div>
+        ))}
+      </div>
 
       <div className="card-grid">
         <a href="/diagnose" className="card">
@@ -27,6 +44,14 @@ export default function HomePage() {
         </a>
       </div>
 
+      <a href="/story" className="coach-banner">
+        <div className="avatar" style={{ width: 64, height: 64, fontSize: 24 }}>박</div>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: 600, marginBottom: 2 }}>1호 코치 박용군 — 평택 족발 10년 (2011~2021, 코로나 폐업)</div>
+          <div style={{ fontSize: 14, color: 'var(--ink-soft)' }}>"5년 전의 나에게, 지금의 후배 사장님께" — 박용군 이야기 보기 →</div>
+        </div>
+      </a>
+
       <h2>한국 폐업 시장의 두 극단 사이</h2>
       <p>
         소상공인진흥공단 무료 컨설팅(품질·접근성 한계)과 세무사 폐업 대행(150만 원, 세무만)
@@ -38,6 +63,11 @@ export default function HomePage() {
         ① 신용회복 8개 · ② 법무 8개 · ③ 세무 8개 · ④ 심리·재출발 6개 — 모두 1호 코치(박용군)가 5년 전
         평택 족발집을 닫으며 직접 헤맸던 항목들입니다.
       </p>
+
+      <small className="footnote">
+        통계 출처: 통계청 「전국사업체조사」(연간), 신용회복위원회 「채무조정 통계」 및 「연차보고서」, 「신용정보의 이용 및 보호에 관한 법률」 제25조.
+        본 사이트의 통계는 2024~2025년 공개 자료 기준이며, 정확한 수치는 각 기관 원문을 참조하시기 바랍니다.
+      </small>
     </>
   );
 }

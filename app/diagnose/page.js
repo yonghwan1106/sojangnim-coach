@@ -10,27 +10,61 @@ export default function DiagnosePage() {
     debt: 'medium',
     extra: '',
   });
+  const [tone, setTone] = useState('formal');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState('');
+  const [data, setData] = useState(null);
+  const [rawText, setRawText] = useState('');
+  const [error, setError] = useState('');
+  const [shareUrl, setShareUrl] = useState('');
+  const [sharing, setSharing] = useState(false);
 
   const onChange = (k) => (e) => setForm({ ...form, [k]: e.target.value });
 
   const submit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setLoading(true);
-    setResult('');
+    setError('');
+    setData(null);
+    setRawText('');
+    setShareUrl('');
     try {
       const res = await fetch('/api/diagnose', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, tone }),
       });
-      const data = await res.json();
-      setResult(data.text || data.error || '응답을 받지 못했습니다.');
+      const json = await res.json();
+      if (!res.ok) {
+        setError(json.error || '응답을 받지 못했습니다.');
+      } else if (json.data) {
+        setData(json.data);
+      } else {
+        setRawText(json.raw || '응답 비어있음');
+      }
     } catch (err) {
-      setResult('오류: ' + err.message);
+      setError('오류: ' + err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const share = async () => {
+    if (!data) return;
+    setSharing(true);
+    try {
+      const res = await fetch('/api/share/_new', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weeks: data.weeks, coachMessage: data.coachMessage }),
+      });
+      const json = await res.json();
+      if (json.slug) {
+        const url = `${location.origin}/share/${json.slug}`;
+        setShareUrl(url);
+        navigator.clipboard?.writeText(url).catch(() => {});
+      }
+    } finally {
+      setSharing(false);
     }
   };
 
@@ -40,7 +74,7 @@ export default function DiagnosePage() {
       <h1>폐업 진단 — 4주 캘린더 자동 생성</h1>
       <p className="lead">
         업종과 상황을 입력하면 30개 절차 중 본인에게 해당하는 18~22개를 골라
-        Week1~Week4로 자동 정리합니다. (Claude Haiku 4.5)
+        Week1~Week4 캘린더로 정리합니다. (Claude Haiku 4.5)
       </p>
 
       <form onSubmit={submit}>
@@ -106,13 +140,74 @@ export default function DiagnosePage() {
           onChange={onChange('extra')}
         />
 
+        <label>응답 어조</label>
+        <div className="tone-toggle">
+          <button type="button" className={tone === 'formal' ? 'active' : ''} onClick={() => setTone('formal')}>공식 문서체</button>
+          <button type="button" className={tone === 'kakao' ? 'active' : ''} onClick={() => setTone('kakao')}>카톡 친구체</button>
+        </div>
+
         <button type="submit" disabled={loading}>
           {loading && <span className="spinner" />}
           {loading ? 'AI 분석 중... (3~5초)' : '4주 캘린더 생성'}
         </button>
       </form>
 
-      {result && <div className="result">{result}</div>}
+      {error && <div className="result" style={{ borderColor: '#dc2626', color: '#dc2626' }}>{error}</div>}
+
+      {data?.weeks && (
+        <>
+          <h2>4주 동행 캘린더</h2>
+          <div className="calendar-grid">
+            {data.weeks.map((w) => (
+              <div key={w.week} className="week-card">
+                <div className="week-header">Week {w.week} · {w.theme}</div>
+                <ul>
+                  {w.items?.map((it, i) => (
+                    <li key={i}>
+                      <input type="checkbox" />
+                      <span className={`domain-tag domain-${domainKey(it.domain)}`}>{it.domain}</span>
+                      <span className="item-title">{it.title}</span>
+                      <span className="dday">{it.dday}</span>
+                    </li>
+                  ))}
+                </ul>
+                {w.highlight && <div className="week-highlight">★ {w.highlight}</div>}
+              </div>
+            ))}
+          </div>
+
+          {data.coachMessage && (
+            <div className="coach-message">
+              <div style={{ fontWeight: 600, marginBottom: 8 }}>박용군 코치 한마디</div>
+              {data.coachMessage}
+            </div>
+          )}
+
+          <button onClick={share} disabled={sharing} style={{ background: '#1f2937' }}>
+            {sharing ? '저장 중...' : shareUrl ? '✓ 링크 복사됨' : '이 결과 공유 링크 받기'}
+          </button>
+          {shareUrl && (
+            <div className="share-url">
+              <code>{shareUrl}</code>
+              <span style={{ fontSize: 12, color: 'var(--ink-soft)', marginLeft: 8 }}>(30일간 유효)</span>
+            </div>
+          )}
+        </>
+      )}
+
+      {rawText && !data && (
+        <div className="result">
+          <small style={{ color: 'var(--ink-soft)' }}>※ JSON 파싱 실패. 원시 응답:</small>
+          {'\n\n'}{rawText}
+        </div>
+      )}
     </>
   );
+}
+
+function domainKey(d) {
+  if (d?.includes('신용')) return 'credit';
+  if (d?.includes('법무')) return 'legal';
+  if (d?.includes('세무')) return 'tax';
+  return 'mental';
 }

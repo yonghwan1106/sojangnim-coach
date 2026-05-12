@@ -1,9 +1,20 @@
 import Anthropic from '@anthropic-ai/sdk';
+import { checkRateLimit, getClientIp } from '../../../lib/rateLimit';
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export async function POST(req) {
   try {
+    const ip = getClientIp(req);
+    const limit = checkRateLimit(ip);
+    if (!limit.allowed) {
+      const minutes = Math.ceil((limit.resetAt - Date.now()) / 60000);
+      return Response.json(
+        { error: `요청이 많아 잠시 후 다시 시도해주세요. (약 ${minutes}분 후 가능)` },
+        { status: 429 }
+      );
+    }
+
     const { name, industry, years, closeReason, learned, nextPlan } = await req.json();
 
     const prompt = `당신은 한국 자영업 재도전 전문 카운슬러입니다. 폐업한 사장님의 정보를 받아 정부 재도전 펀드·소상공인진흥공단 정책자금·재창업 패키지 신청용 "도전 경력서"를 작성합니다.
